@@ -1,4 +1,12 @@
 #!/usr/bin/python3
+
+"""
+Script that fetches an employee's TODO list from a REST API
+and consoles it.
+
+Usage:
+    python3 0-gather_data_from_an_API.py <employee_id>
+"""
 import requests
 import sys
 
