@@ -55,4 +55,3 @@ with open(file_name, 'w', newline='', encoding='utf-8') as file:
         ])
 
 print(f"Data exported to {file_name}")
-
