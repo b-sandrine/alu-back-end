@@ -7,9 +7,9 @@ Usage:
     python3 2-export_to_JSON.py <employee_id>
 """
 
+import json
 import requests
 import sys
-import json
 
 # ✅ Validate input
 if len(sys.argv) != 2 or not sys.argv[1].isdigit():
