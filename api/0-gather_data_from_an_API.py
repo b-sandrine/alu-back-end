@@ -1,4 +1,4 @@
-#!usr/bin/python3
+#!/usr/bin/python3
 
 """ Module documentation: This file contains the
  codes that fetch data from 2 apis and console the completed
