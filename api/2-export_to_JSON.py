@@ -4,8 +4,8 @@ Script that fetches all users' TODO lists from a REST API
 and exports the data into a JSON file (todo_all_employees.json).
 """
 
-import requests
 import json
+import requests
 
 # ✅ API endpoints
 users_url = "https://jsonplaceholder.typicode.com/users"
@@ -20,8 +20,7 @@ all_data = {}
 
 for user in users:
     user_id = user["id"]
-    username = user["username"]
-    
+    username = user["username"]    
     # Filter todos for this user
     user_tasks = [todo for todo in todos if todo["userId"] == user_id]
 
