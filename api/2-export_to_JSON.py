@@ -1,41 +1,53 @@
 #!/usr/bin/python3
 """
-Script that fetches all users' TODO lists from a REST API
-and exports the data into a JSON file (todo_all_employees.json).
+Script that fetches an employee's TODO list from a REST API
+and exports it into a JSON file in a specific format.
+
+Usage:
+    python3 2-export_to_JSON.py <employee_id>
 """
 
-import json
 import requests
+import sys
+import json
 
-# ✅ API endpoints
-users_url = "https://jsonplaceholder.typicode.com/users"
-todos_url = "https://jsonplaceholder.typicode.com/todos"
+# ✅ Validate input
+if len(sys.argv) != 2 or not sys.argv[1].isdigit():
+    print("Usage: python3 2-export_to_JSON.py <employee_id>")
+    sys.exit(1)
 
-# ✅ Fetch all users and todos
-users = requests.get(users_url).json()
-todos = requests.get(todos_url).json()
+employee_id = sys.argv[1]
 
-# ✅ Prepare the output structure
-all_data = {}
+# ✅ Define API endpoints
+user_url = f"https://jsonplaceholder.typicode.com/users/{employee_id}"
+todos_url = f"https://jsonplaceholder.typicode.com/todos?userId={employee_id}"
 
-for user in users:
-    user_id = user["id"]
-    username = user["username"]    
-    # Filter todos for this user
-    user_tasks = [todo for todo in todos if todo["userId"] == user_id]
+# ✅ Fetch user info
+user_res = requests.get(user_url)
+if user_res.status_code != 200:
+    print("Employee not found.")
+    sys.exit(1)
 
-    # Build the task list for this user
-    all_data[str(user_id)] = [
-        {
-            "username": username,
-            "task": task["title"],
-            "completed": task["completed"]
-        }
-        for task in user_tasks
-    ]
+user_data = user_res.json()
+username = user_data.get("username")
+
+# ✅ Fetch TODO list
+todos_res = requests.get(todos_url)
+todos = todos_res.json()
+
+# ✅ Prepare JSON structure
+user_tasks = [
+    {
+        "task": task.get("title"),
+        "completed": task.get("completed"),
+        "username": username
+    }
+    for task in todos
+]
 
 # ✅ Write to JSON file
-with open("todo_all_employees.json", "w") as json_file:
-    json.dump(all_data, json_file, indent=4)
+filename = f"{employee_id}.json"
+with open(filename, "w", encoding="utf-8") as json_file:
+    json.dump({employee_id: user_tasks}, json_file)
 
-print("Data exported to todo_all_employees.json")
+print(f"Data exported to {filename}")
