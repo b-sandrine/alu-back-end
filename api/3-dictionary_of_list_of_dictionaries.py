@@ -6,8 +6,8 @@ and exports the data into a JSON file in a specified format.
 Output file: todo_all_employees.json
 """
 
-import requests
 import json
+import requests
 
 # ✅ API endpoints
 users_url = "https://jsonplaceholder.typicode.com/users"
