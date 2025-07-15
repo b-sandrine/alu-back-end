@@ -32,7 +32,7 @@ todos_res = requests.get(todos_url)
 todos = todos_res.json()
 
 # ✅ Count total and completed tasks
-total = len(todos) # Total tasks
+total = len(todos)
 done_tasks = [task for task in todos if task.get("completed")]
 num_done = len(done_tasks)
 
