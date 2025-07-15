@@ -25,20 +25,19 @@ if user_res.status_code != 200:
     sys.exit(1)
 
 user_data = user_res.json()
-employee_name = user_data.get("name")
+employ_name = user_data.get("name")
 
 # ✅ Fetch TODO list
 todos_res = requests.get(todos_url)
 todos = todos_res.json()
 
 # ✅ Count total and completed tasks
-total_tasks = len(todos)
+total = len(todos) # Total tasks
 done_tasks = [task for task in todos if task.get("completed")]
 num_done = len(done_tasks)
 
 # ✅ Print required format
-print(f"Employee {employee_name} is done with tasks"
-f"({num_done}/{total_tasks}):")
+print(f"Employee {employ_name} is done with tasks({num_done}/{total}):")
 
 for task in done_tasks:
     print(f"\t {task.get('title')}")
