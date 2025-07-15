@@ -6,10 +6,9 @@ and exports it into a CSV file.
 Usage:
     python3 0-gather_data_from_an_API.py <employee_id>
 """
-
+import csv
 import requests
 import sys
-import csv
 
 # ✅ Validate command-line arguments
 if len(sys.argv) != 2 or not sys.argv[1].isdigit():
