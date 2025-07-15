@@ -40,5 +40,3 @@ for user in users:
 # ✅ Export to JSON
 with open("todo_all_employees.json", "w") as json_file:
     json.dump(all_tasks_by_user, json_file)
-
-print("Data exported to todo_all_employees.json")
